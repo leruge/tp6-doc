@@ -83,22 +83,20 @@ class DocController
                     // 过滤掉不符合的return并组装响应数据
                     $this->params['return'] = $this->params['return'] ?? [];
                     $resData = $this->parseResData($this->params['return']);
-                    $apiUrlArray = [
-                        $this->params['url'] => [
-                            $this->params['method'] => [
-                                'tags' => [$tag],
-                                'summary' => $this->params['title'],
-                                'parameters' => $parameters,
-                                'responses' => [
-                                    'response' => [
-                                        'description' => '响应结果',
-                                        'schema' => [
-                                            'properties' => [
-                                                'code' => ['example' => $config['code_desc']],
-                                                'msg' => ['example' => '提示信息'],
-                                                'data' => [
-                                                    'properties' => $resData
-                                                ]
+                    $apiUrlArray[$this->params['url']] = [
+                        $this->params['method'] => [
+                            'tags' => [$tag],
+                            'summary' => $this->params['title'],
+                            'parameters' => $parameters,
+                            'responses' => [
+                                'response' => [
+                                    'description' => '响应结果',
+                                    'schema' => [
+                                        'properties' => [
+                                            'code' => ['example' => $config['code_desc']],
+                                            'msg' => ['example' => '提示信息'],
+                                            'data' => [
+                                                'properties' => $resData
                                             ]
                                         ]
                                     ]
