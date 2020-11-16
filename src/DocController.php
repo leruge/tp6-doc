@@ -139,28 +139,94 @@ class DocController
                 $key = key($v3);
                 $value = $v3[$key];
                 if (substr((string)$value, -2) == '@!') {
+//                    halt($value); name 图片地址
                     if (!empty($this->params[$key])) {
                         if (is_array($this->params[$key])) {
                             $array = [];
                             foreach ($this->params[$key] as $k4 => $v4) {
-                                $array[$k4] = ['example' => $v4];
+                                // demo Demo@!
+                                if (substr((string)$v4, -2) == '@!') {
+                                    if (!empty($this->params[$k4])) {
+                                        if (is_array($this->params[$k4])) {
+                                            $array1 = [];
+                                            foreach ($this->params[$k4] as $k5 => $v5) {
+                                                $array1[$k5] = ['example' => $v5];
+                                            }
+                                            $array[$k4] = [
+                                                'properties' => $array1
+                                            ];
+                                        } else {
+                                            $array[$k4] = ['example' => $this->params[$k4]];
+                                        }
+                                    }
+                                } elseif (substr($v4, -1) == '@') {
+                                    if (!empty($this->params[$k4])) {
+                                        if (is_array($this->params[$k4])) {
+                                            $object = [];
+                                            foreach ($this->params[$k4] as $k5 => $v5) {
+                                                $object[$k5] = ['example' => $v5];
+                                            }
+                                            $array[$k4] = [
+                                                'items' => ['properties' => $object]
+                                            ];
+                                        } else {
+                                            $array[$k4] = [
+                                                'items' => ['example' => $this->params[$k4]]
+                                            ];
+                                        }
+                                    }
+                                } else {
+                                    $array[$k4] = ['example' => $v4];
+                                }
                             }
                             $resData[$key] = [
                                 'properties' => $array
                             ];
                         } else {
-                            $resData[$key] = ['example' => $value];
+                            $resData[$key] = ['example' => $this->params[$key]];
                         }
                     }
                 } elseif (substr((string)$value, -1) == '@') {
                     if (!empty($this->params[$key])) {
                         if (is_array($this->params[$key])) {
                             $object = [];
-                            foreach ($this->params[$key] as $k5 => $v5) {
-                                $object[$k5] = ['example' => $v5];
+                            foreach ($this->params[$key] as $k4 => $v4) {
+                                if (substr((string)$v4, -2) == '@!') {
+                                    if (!empty($this->params[$k4])) {
+                                        if (is_array($this->params[$k4])) {
+                                            $array1 = [];
+                                            foreach ($this->params[$k4] as $k5 => $v5) {
+                                                $array1[$k5] = ['example' => $v5];
+                                            }
+                                            $array[$k4] = [
+                                                'properties' => $array1
+                                            ];
+                                        } else {
+                                            $array[$k4] = ['example' => $this->params[$k4]];
+                                        }
+                                    }
+                                } elseif (substr($v4, -1) == '@') {
+                                    if (!empty($this->params[$k4])) {
+                                        if (is_array($this->params[$k4])) {
+                                            $object = [];
+                                            foreach ($this->params[$k4] as $k5 => $v5) {
+                                                $object[$k5] = ['example' => $v5];
+                                            }
+                                            $array[$k4] = [
+                                                'items' => ['properties' => $object]
+                                            ];
+                                        } else {
+                                            $array[$k4] = [
+                                                'items' => ['example' => $this->params[$k4]]
+                                            ];
+                                        }
+                                    }
+                                } else {
+                                    $array[$k4] = ['example' => $v4];
+                                }
                             }
                             $resData[$key] = [
-                                'items' => ['properties' => $object]
+                                'items' => ['properties' => $array]
                             ];
                         } else {
                             $resData[$key] = ['example' => $value];
