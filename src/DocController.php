@@ -73,7 +73,7 @@ class DocController
                             $parameters[] = [
                                 'name' => $v2['name'],
                                 'type' => $v2['type'],
-                                'require' => $v2['require'] ? true : false,
+                                'required' => $v2['require'] ? true : false,
                                 'description' => $v2['desc'],
                                 'default' => $v2['default'] ?? null,
                                 'in' => 'formData'
